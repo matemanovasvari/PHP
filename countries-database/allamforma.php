@@ -6,7 +6,7 @@
     <title>Fővárosok</title>
 </head>
 <body>
-    <h1>Fővárosok</h1>
+    <h1>Országok</h1>
     <table>
         <tr>
             <th>Ország</th>
@@ -16,7 +16,7 @@
         require_once('connect.php');
         if (isset($_GET['kod'])){
             $fkod = $_GET['kod'];
-            $sql = "SELECT onev as orszag, fovaros FROM orszagok WHERE foldreszkod = $fkod;";
+            $sql = "SELECT onev as orszag, fovaros FROM orszagok WHERE allamkod = $fkod;";
             try{
                 $stmt = $connect -> prepare($sql);
                 $stmt -> execute();
