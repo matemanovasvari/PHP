@@ -7,17 +7,17 @@
 </head>
 <body>
     <?php
-        require_once('connect.php');    //Beemeljük a connect.php fájlban található kódot.
-        $sql = "SELECT * FROM foldreszek";  //Földrészek tábla minden adatának lekérdezése.
-        $stmt = $connect -> prepare($sql);  //Lekérdezés előkészítése
+        require_once('connect.php');
+
+        $sql = "SELECT * FROM foldreszek";
+        $stmt = $connect -> prepare($sql);
         $formFoldresz = '<form action="fovaros.php" method="get"> <select name="kod">'; 
         try {
-            $stmt -> execute();     //Lekérdezés végrehajtása
-            while ($row = $stmt -> fetchObject()){      //Lekérdezés eredményének sorokra bontása.
+            $stmt -> execute();
+            while ($row = $stmt -> fetchObject()){
                 $formFoldresz .= '<option value="'. $row -> foldreszkod. '" >' .$row -> foldresznev.  '</option>'; 
-                //select elemben az option tag-ek létrehozása.
             }
-            $formFoldresz .= '</select> <input type="submit"> </form>';     //Select lezárása, gomb létrehozása
+            $formFoldresz .= '</select> <input type="submit"> </form>';
         }
         catch (PDOException $e){               
             echo $e -> getMessage();
@@ -40,6 +40,23 @@
             echo $e -> getMessage();
         }
         echo $formAllamforma;
+
+        echo"<br>";
+
+        $sql = "SELECT * FROM penznemek";
+        $stmt = $connect -> prepare($sql);
+        $formPenznem = '<form action="penznem.php" method="get"> <select name="kod">'; 
+        try {
+            $stmt -> execute();
+            while ($row = $stmt -> fetchObject()){
+                $formPenznem .= '<option value="'. $row -> penznemkod. '" >' .$row -> penznemnev.  '</option>'; 
+            }
+            $formPenznem .= '</select> <input type="submit"> </form>';
+        }
+        catch (PDOException $e){               
+            echo $e -> getMessage();
+        }
+        echo $formPenznem;
     ?>
 </body>
 </html>
